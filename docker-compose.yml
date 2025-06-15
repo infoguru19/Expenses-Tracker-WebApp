@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   java-app:
-    build: 
+    build:
       context: .
     image: expenses-app
     container_name: expenses-app
@@ -43,6 +43,16 @@ services:
       retries: 5
       start_period: 60s
 
-#  nginx:
+  nginx:
+    build: ./nginx
+    image: nginx
+    container_name: nginx
+    ports:
+      - 80:80
+    restart: always
+    depends_on:
+      - java-app
+    networks:
+      - expenses-app
 networks:
   expenses-app:
